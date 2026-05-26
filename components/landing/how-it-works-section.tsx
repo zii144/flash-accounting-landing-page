@@ -59,12 +59,12 @@ function StepEntryMock() {
         </div>
       </div>
 
-      <div className="flex gap-3 mt-auto">
-        <div className="flex-1 rounded-full bg-foreground/10 py-3 flex justify-center">
-          <SkeletonBar className="h-3 w-12 bg-foreground/20" />
+      <div className="flex gap-3 mt-auto mock-highlight">
+        <div className="flex-1 rounded-full bg-foreground py-3 flex justify-center">
+          <span className="text-xs font-medium text-background tracking-wide">記支出</span>
         </div>
-        <div className="flex-1 rounded-full border border-foreground/15 py-3 flex justify-center">
-          <SkeletonBar className="h-3 w-12" />
+        <div className="flex-1 rounded-full bg-foreground py-3 flex justify-center">
+          <span className="text-xs font-medium text-background tracking-wide">記收入</span>
         </div>
       </div>
     </div>
@@ -76,9 +76,9 @@ function StepListMock() {
     <div className="flex flex-col h-full pt-12 px-4 pb-6">
       <MockHeader />
 
-      <div className="rounded-2xl border border-foreground/10 p-4 mb-5">
-        <SkeletonBar className="h-2 w-8 mb-2" />
-        <SkeletonBar className="h-7 w-28" />
+      <div className="rounded-2xl bg-foreground p-4 mb-5 mock-highlight">
+        <span className="text-[10px] text-background/50 font-mono block mb-1">淨額總計</span>
+        <span className="text-xl font-display text-background tracking-tight">$12,480</span>
       </div>
 
       <div className="space-y-0 flex-1">
@@ -116,10 +116,10 @@ function StepStatsMock() {
         ))}
       </div>
 
-      <div className="mt-auto rounded-xl border border-foreground/10 px-4 py-3 flex items-center justify-between">
-        <SkeletonBar className="h-2.5 w-16" />
-        <div className="h-3 w-px bg-foreground/10" />
-        <SkeletonBar className="h-2.5 w-16" />
+      <div className="mt-auto rounded-xl bg-foreground px-4 py-3 flex items-center justify-between mock-highlight">
+        <span className="text-[10px] font-medium text-background tracking-wide">本月</span>
+        <div className="h-3 w-px bg-background/20" />
+        <span className="text-[10px] font-medium text-background tracking-wide">依金額</span>
       </div>
     </div>
   );
@@ -259,8 +259,23 @@ export function HowItWorksSection() {
           }
         }
 
+        @keyframes highlightIn {
+          from {
+            opacity: 0;
+            transform: scale(0.96);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
         .animate-mock-in {
           animation: mockIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .animate-mock-in .mock-highlight {
+          animation: highlightIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
         }
       `}</style>
     </section>
