@@ -18,6 +18,7 @@ export const siteContent = {
     { name: "如何使用", href: "#how-it-works" },
     { name: "畫面預覽", href: "#screenshots" },
     { name: "方案", href: "#pricing" },
+    { name: "常見問題", href: "#faq" },
   ],
   hero: {
     eyebrow: "這個月沒大買，為什麼戶頭還是這麼少？",
@@ -314,6 +315,7 @@ export const siteContent = {
         { name: "功能", href: "#features" },
         { name: "如何使用", href: "#how-it-works" },
         { name: "方案", href: "#pricing" },
+        { name: "常見問題", href: "#faq" },
         { name: "語言", href: "#integrations" },
       ],
       App: [

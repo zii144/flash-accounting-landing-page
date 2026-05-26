@@ -75,8 +75,11 @@ export function HeroSection() {
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
-                <span className="block">{hero.headlinePrefix}</span>
-                <span className="block">
+                <span className="sr-only">
+                  {brand.name} — {brand.tagline}
+                </span>
+                <span className="block" aria-hidden="true">{hero.headlinePrefix}</span>
+                <span className="block" aria-hidden="true">
                   <span className="relative inline-block">
                     <span key={wordIndex} className="inline-flex">
                       {hero.rotatingWords[wordIndex].split("").map((char, i) => (
