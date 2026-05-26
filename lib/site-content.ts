@@ -1,6 +1,6 @@
 export const siteContent = {
   brand: {
-    name: "黑白記帳",
+    name: "黑白記帳｜追蹤無感消費",
     nameEn: "Flash Accounting",
     tagline: "追蹤無感消費，零摩擦記帳，重掌財務主導權。",
     description:
