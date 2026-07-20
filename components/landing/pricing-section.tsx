@@ -58,7 +58,7 @@ export function PricingSection() {
           )}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-px bg-foreground/10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-foreground/10">
           {pricing.plans.map((plan, idx) => (
             <div
               key={plan.name}
@@ -81,7 +81,14 @@ export function PricingSection() {
               </div>
 
               <div className="mb-8 pb-8 border-b border-foreground/10">
-                {plan.price.monthly !== null ? (
+                {plan.price.oneTime !== null ? (
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-display text-5xl lg:text-6xl text-foreground">
+                      ${plan.price.oneTime}
+                    </span>
+                    <span className="text-muted-foreground">一次買斷</span>
+                  </div>
+                ) : plan.price.monthly !== null ? (
                   <div className="flex items-baseline gap-2">
                     <span className="font-display text-5xl lg:text-6xl text-foreground">
                       ${isAnnual ? plan.price.annual : plan.price.monthly}

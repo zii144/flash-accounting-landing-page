@@ -260,14 +260,15 @@ export const siteContent = {
     eyebrow: "方案",
     title: "免費開始。",
     titleMuted: "準備好再同步。",
-    description: "本機記帳完全免費。需要備份與跨裝置同步時，再升級 Pro。",
+    description:
+      "本機記帳完全免費。想解除筆數上限，一次買斷 Plus；需要備份與跨裝置同步，再升級 Pro。",
     annualBadge: "年付 $14.99",
-    footnote: "Pro 價格為示意，實際以 App Store / Google Play 為準。",
+    footnote: "Plus 與 Pro 價格為示意，實際以 App Store / Google Play 為準。",
     plans: [
       {
         name: "免費",
         description: "本機記帳，零門檻開始",
-        price: { monthly: 0, annual: 0 },
+        price: { monthly: 0, annual: 0, oneTime: null },
         features: [
           "本機最多 500 筆紀錄",
           "支出與收入記帳",
@@ -280,11 +281,26 @@ export const siteContent = {
         popular: false,
       },
       {
-        name: "Pro",
-        description: "雲端同步帳本，換機不丟資料",
-        price: { monthly: 1.99, annual: 1.25 },
+        name: "Plus",
+        description: "一次買斷，本機無限記帳",
+        price: { monthly: null, annual: null, oneTime: 14.99 },
         features: [
           "包含免費版全部功能",
+          "本機紀錄無上限",
+          "一次購買，不用訂閱",
+          "免帳號、免雲端",
+          "資料只存本機更安心",
+          "恢復購買",
+        ],
+        cta: "解鎖本機無上限",
+        popular: false,
+      },
+      {
+        name: "Pro",
+        description: "雲端同步帳本，換機不丟資料",
+        price: { monthly: 1.99, annual: 1.25, oneTime: null },
+        features: [
+          "包含 Plus 全部功能",
           "無上限雲端儲存",
           "推送本機至雲端",
           "從雲端還原至本機",
@@ -298,7 +314,7 @@ export const siteContent = {
       {
         name: "即將推出",
         description: "更多省時功能",
-        price: { monthly: null, annual: null },
+        price: { monthly: null, annual: null, oneTime: null },
         features: [
           "收據掃描 + OCR",
           "自動填入金額與商家",
