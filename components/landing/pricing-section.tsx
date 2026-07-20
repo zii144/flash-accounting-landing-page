@@ -82,11 +82,11 @@ export function PricingSection() {
 
               <div className="mb-8 pb-8 border-b border-foreground/10">
                 {plan.price.oneTime !== null ? (
-                  <div className="flex items-baseline gap-2">
+                  <div>
                     <span className="font-display text-5xl lg:text-6xl text-foreground">
                       ${plan.price.oneTime}
                     </span>
-                    <span className="text-muted-foreground">{ui.oneTimeSuffix}</span>
+                    <span className="block mt-2 text-muted-foreground">{ui.oneTimeSuffix}</span>
                   </div>
                 ) : plan.price.monthly !== null ? (
                   <div className="flex items-baseline gap-2">
