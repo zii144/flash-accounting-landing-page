@@ -39,7 +39,7 @@ export function getSoftwareApplicationSchema() {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description: "Free tier with up to 200 local transactions",
+      description: "Free tier with up to 500 local transactions",
     },
     {
       "@type": "Offer",

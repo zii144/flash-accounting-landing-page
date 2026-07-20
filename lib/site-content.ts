@@ -26,8 +26,8 @@ export const siteContent = {
     rotatingWords: ["錢怎麼不見了", "是無感漏財", "是幽靈消費", "該記一筆了"],
     stats: [
       { value: "3 秒", label: "記完一筆", company: "零摩擦記帳" },
-      { value: "6", label: "種語言支援", company: "多語介面" },
-      { value: "200", label: "筆本機免費額度", company: "本機優先" },
+      { value: "16", label: "種語言支援", company: "多語介面" },
+      { value: "500", label: "筆本機免費額度", company: "本機優先" },
       { value: "隨時", label: "匯出", company: "資料在你手上" },
     ],
   },
@@ -77,7 +77,7 @@ export const siteContent = {
       },
       {
         number: "04",
-        title: "穩私優先，本機儲存",
+        title: "隱私優先，本機儲存",
         descriptionParts: [
           { text: "離線", highlight: true },
           { text: "可用，" },
@@ -132,13 +132,13 @@ export const siteContent = {
     description:
       "黑白記帳預設只在本機儲存。不必註冊就能開始記帳；需要備份時，也可選擇雲端同步帳本。",
     stats: [
-      { value: "200", label: "筆本機免費額度" },
+      { value: "500", label: "筆本機免費額度" },
       { value: "0", label: "強制登入" },
       { value: "隨時", label: "匯出備份" },
     ],
     highlights: [
       { title: "資料存在手機裡", detail: "快速、可靠，沒網路也能用" },
-      { title: "200 筆免費額度", detail: "足夠開始記帳與試用" },
+      { title: "500 筆免費額度", detail: "足夠開始記帳與試用" },
       { title: "可選雲端同步", detail: "需要時可跨裝置備份" },
       { title: "一鍵匯出試算表", detail: "備份帶著走" },
       { title: "編輯與刪除", detail: "隨時修正每一筆" },
@@ -151,8 +151,8 @@ export const siteContent = {
     titleBreak: "沒有雜訊。",
     items: [
       { value: 2, suffix: "", label: "主要分頁——記帳與統計" },
-      { value: 6, suffix: "", label: "語言支援" },
-      { value: 200, suffix: "", label: "本機免費筆數" },
+      { value: 16, suffix: "", label: "語言支援" },
+      { value: 500, suffix: "", label: "本機免費筆數" },
       { value: 5, suffix: "", label: "時間篩選——全部到本年" },
     ],
   },
@@ -169,6 +169,16 @@ export const siteContent = {
       { name: "Español", native: "Español" },
       { name: "Français", native: "Français" },
       { name: "Deutsch", native: "Deutsch" },
+      { name: "हिन्दी", native: "हिन्दी" },
+      { name: "Português", native: "Português" },
+      { name: "Русский", native: "Русский" },
+      { name: "Bahasa Indonesia", native: "Bahasa Indonesia" },
+      { name: "한국어", native: "한국어" },
+      { name: "Italiano", native: "Italiano" },
+      { name: "Türkçe", native: "Türkçe" },
+      { name: "Tiếng Việt", native: "Tiếng Việt" },
+      { name: "ไทย", native: "ไทย" },
+      { name: "Polski", native: "Polski" },
     ],
     comingSoon: [
       { name: "雲端備份與同步", category: "Pro 功能" },
@@ -177,7 +187,7 @@ export const siteContent = {
     ],
   },
   privacy: {
-    eyebrow: "穩私",
+    eyebrow: "隱私",
     title: "你的財務，",
     titleBreak: "你的裝置。",
     description:
@@ -259,11 +269,11 @@ export const siteContent = {
         description: "本機記帳，零門檻開始",
         price: { monthly: 0, annual: 0 },
         features: [
-          "本機最多 200 筆紀錄",
+          "本機最多 500 筆紀錄",
           "支出與收入記帳",
           "統計篩選與排序",
           "試算表匯出",
-          "6 語言 + 深色模式",
+          "16 語言 + 深色模式",
           "免登入即可使用",
         ],
         cta: "免費下載",
@@ -307,7 +317,7 @@ export const siteContent = {
     titleBreak: "重掌財務主導權？",
     description:
       "從看清每一筆無感消費開始。下載黑白記帳，三秒記一筆，把幽靈消費全部抓出來。",
-    footnote: "免費開始 · 本機 200 筆",
+    footnote: "免費開始 · 本機 500 筆",
   },
   footer: {
     links: {
@@ -326,14 +336,14 @@ export const siteContent = {
       ],
       公司: [
         { name: "關於", href: "#" },
-        { name: "支援", href: "#" },
-        { name: "穩私", href: "#" },
-        { name: "聯絡", href: "#" },
+        { name: "支援", href: "/support" },
+        { name: "隱私", href: "/privacy" },
+        { name: "聯絡", href: "/support" },
       ],
       法律: [
-        { name: "隱私政策", href: "#" },
-        { name: "服務條款", href: "#" },
-        { name: "資料與穩私", href: "#security" },
+        { name: "隱私政策", href: "/privacy" },
+        { name: "服務條款", href: "/terms" },
+        { name: "資料與隱私", href: "/data" },
       ],
     },
     social: [

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/site-config";
 
-export const runtime = "edge";
+export const dynamic = "force-static";
 export const alt = `${siteConfig.name} — 追蹤無感消費、零摩擦記帳`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

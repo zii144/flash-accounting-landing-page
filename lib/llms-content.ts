@@ -15,7 +15,7 @@ ${siteConfig.description}
 - **Product name (zh-TW):** ${siteConfig.name}
 - **Category:** Personal finance / expense tracking mobile app
 - **Platform:** iOS${siteConfig.googlePlayEnabled ? ", Android" : " (Android coming soon)"}
-- **Pricing:** Free (200 local entries) · Pro cloud sync (~$1.99/mo or ~$14.99/yr)
+- **Pricing:** Free (500 local entries) · Pro cloud sync (~$1.99/mo or ~$14.99/yr)
 - **Privacy model:** Local-first, offline-capable, optional cloud sync
 - **Languages:** ${siteContent.languages.items.map((item) => item.name).join(", ")}
 

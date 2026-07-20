@@ -36,7 +36,8 @@ export const siteConfig = {
   appStoreUrl: siteContent.download.appStoreUrl,
   googlePlayUrl: siteContent.download.googlePlayUrl,
   googlePlayEnabled: siteContent.download.googlePlayEnabled,
-  contactEmail: "support@flash-accounting.app",
+  contactEmail: "quickpolymath@gmail.com",
+  githubIssuesUrl: "https://github.com/zii144/flash-accounting/issues",
 } as const;
 
 export function absoluteUrl(path = "/"): string {
