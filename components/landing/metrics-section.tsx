@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
 
 function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffix?: string; prefix?: string }) {
   const [count, setCount] = useState(0);
@@ -47,7 +47,7 @@ function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffi
 export function MetricsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const { metrics } = siteContent;
+  const { metrics } = useSiteContent();
 
   useEffect(() => {
     const observer = new IntersectionObserver(

@@ -2,14 +2,14 @@
 
 import { useEffect, useState, useRef } from "react";
 import { Shield, Lock, Eye, FileCheck } from "lucide-react";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
 
 const privacyIcons = [Shield, Lock, Eye, FileCheck];
 
 export function SecuritySection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const { privacy } = siteContent;
+  const { privacy } = useSiteContent();
 
   useEffect(() => {
     const observer = new IntersectionObserver(

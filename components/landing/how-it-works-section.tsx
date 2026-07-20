@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { siteContent } from "@/lib/site-content";
-
-const steps = siteContent.howItWorks.steps;
+import { useSiteContent } from "@/components/locale-provider";
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
@@ -40,6 +38,7 @@ function MockHeader({ titleWidth = "w-10" }: { titleWidth?: string }) {
 }
 
 function StepEntryMock() {
+  const { ui } = useSiteContent();
   return (
     <div className="flex flex-col h-full pt-12 px-4 pb-6">
       <MockHeader />
@@ -61,10 +60,10 @@ function StepEntryMock() {
 
       <div className="flex gap-3 mt-auto mock-highlight">
         <div className="flex-1 rounded-full bg-foreground py-3 flex justify-center">
-          <span className="text-xs font-medium text-background tracking-wide">記支出</span>
+          <span className="text-xs font-medium text-background tracking-wide">{ui.mockExpenseButton}</span>
         </div>
         <div className="flex-1 rounded-full bg-foreground py-3 flex justify-center">
-          <span className="text-xs font-medium text-background tracking-wide">記收入</span>
+          <span className="text-xs font-medium text-background tracking-wide">{ui.mockIncomeButton}</span>
         </div>
       </div>
     </div>
@@ -72,12 +71,13 @@ function StepEntryMock() {
 }
 
 function StepListMock() {
+  const { ui } = useSiteContent();
   return (
     <div className="flex flex-col h-full pt-12 px-4 pb-6">
       <MockHeader />
 
       <div className="rounded-2xl bg-foreground p-4 mb-5 mock-highlight">
-        <span className="text-[10px] text-background/50 font-mono block mb-1">淨額總計</span>
+        <span className="text-[10px] text-background/50 font-mono block mb-1">{ui.mockNetTotal}</span>
         <span className="text-xl font-display text-background tracking-tight">$12,480</span>
       </div>
 
@@ -100,6 +100,7 @@ function StepListMock() {
 }
 
 function StepStatsMock() {
+  const { ui } = useSiteContent();
   return (
     <div className="flex flex-col h-full pt-12 px-4 pb-6">
       <MockHeader titleWidth="w-8" />
@@ -117,9 +118,9 @@ function StepStatsMock() {
       </div>
 
       <div className="mt-auto rounded-xl bg-foreground px-4 py-3 flex items-center justify-between mock-highlight">
-        <span className="text-[10px] font-medium text-background tracking-wide">本月</span>
+        <span className="text-[10px] font-medium text-background tracking-wide">{ui.mockThisMonth}</span>
         <div className="h-3 w-px bg-background/20" />
-        <span className="text-[10px] font-medium text-background tracking-wide">依金額</span>
+        <span className="text-[10px] font-medium text-background tracking-wide">{ui.mockByAmount}</span>
       </div>
     </div>
   );
@@ -131,7 +132,8 @@ export function HowItWorksSection() {
   const [activeStep, setActiveStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { howItWorks } = siteContent;
+  const { howItWorks } = useSiteContent();
+  const steps = howItWorks.steps;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -150,7 +152,7 @@ export function HowItWorksSection() {
       setActiveStep((prev) => (prev + 1) % steps.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [steps.length]);
 
   const ActiveMock = stepMocks[activeStep];
 

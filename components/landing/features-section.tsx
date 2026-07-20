@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { siteContent } from "@/lib/site-content";
-
-const features = siteContent.features.items;
+import { useSiteContent } from "@/components/locale-provider";
+import type { DescriptionPart, FeatureItem } from "@/lib/locales/types";
 
 function FeatureDescription({
   parts,
 }: {
-  parts: (typeof features)[number]["descriptionParts"];
+  parts: readonly DescriptionPart[];
 }) {
   return (
     <p className="text-lg text-muted-foreground leading-relaxed">
@@ -129,6 +128,7 @@ function DeployVisual() {
 }
 
 function CollabVisual() {
+  const { ui } = useSiteContent();
   const subscriptions = [
     { label: "N", amount: "-$15", y: 28, forgotten: false },
     { label: "S", amount: "-$10", y: 52, forgotten: false },
@@ -141,7 +141,7 @@ function CollabVisual() {
       {/* Monthly bill card */}
       <rect x="32" y="14" width="136" height="112" rx="8" fill="none" stroke="currentColor" strokeWidth="2" />
       <text x="44" y="26" fontSize="7" fontFamily="monospace" fill="currentColor" opacity="0.5">
-        每月自動扣款
+        {ui.mockMonthlyAutopay}
       </text>
 
       {subscriptions.map((sub, i) => (
@@ -187,7 +187,7 @@ function CollabVisual() {
           </path>
 
           <text x="88" y={sub.y + 12} fontSize="8" fontFamily="monospace" fill="currentColor" opacity="0.55">
-            {sub.forgotten ? "忘記為什麼訂" : "自動續訂"}
+            {sub.forgotten ? ui.mockForgotWhy : ui.mockAutoRenews}
           </text>
           <text x="152" y={sub.y + 12} textAnchor="end" fontSize="9" fontFamily="monospace" fill="currentColor">
             {sub.amount}
@@ -205,7 +205,7 @@ function CollabVisual() {
       {/* Monthly total */}
       <line x1="42" y1="122" x2="158" y2="122" stroke="currentColor" strokeWidth="1" opacity="0.2" />
       <text x="44" y="134" fontSize="8" fontFamily="monospace" fill="currentColor" opacity="0.55">
-        本月固定支出
+        {ui.mockMonthlyFixedSpend}
       </text>
       <text x="152" y="134" textAnchor="end" fontSize="11" fontFamily="monospace" fill="currentColor">
         <tspan>-$</tspan>
@@ -294,7 +294,7 @@ function AnimatedVisual({ type }: { type: string }) {
   }
 }
 
-function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
+function FeatureCard({ feature, index }: { feature: FeatureItem; index: number }) {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -348,6 +348,8 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
 export function FeaturesSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const siteContent = useSiteContent();
+  const features = siteContent.features.items;
 
   useEffect(() => {
     const observer = new IntersectionObserver(

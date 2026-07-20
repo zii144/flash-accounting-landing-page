@@ -2,12 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { appScreenshots, siteContent } from "@/lib/site-content";
+import { useLocale, useSiteContent } from "@/components/locale-provider";
+import { assetPath } from "@/lib/asset-path";
 
 export function ScreenshotsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { content } = useLocale();
+  const appScreenshots = content.appScreenshots;
+  const { screenshotsSection } = useSiteContent();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -26,7 +30,7 @@ export function ScreenshotsSection() {
       setActiveIndex((prev) => (prev + 1) % appScreenshots.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [appScreenshots.length]);
 
   const activeScreenshot = appScreenshots[activeIndex];
 
@@ -41,15 +45,15 @@ export function ScreenshotsSection() {
           >
             <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
               <span className="w-8 h-px bg-foreground/30" />
-              App 畫面
+              {screenshotsSection.eyebrow}
             </span>
             <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-8">
-              極簡介面，
+              {screenshotsSection.title}
               <br />
-              <span className="text-muted-foreground">一眼看懂。</span>
+              <span className="text-muted-foreground">{screenshotsSection.titleMuted}</span>
             </h2>
             <p className="text-xl text-muted-foreground leading-relaxed mb-10">
-              兩個主要分頁：記帳與統計。設定一鍵可達——零摩擦記帳，記完就關。
+              {screenshotsSection.description}
             </p>
 
             <div className="space-y-0 border-t border-foreground/10">
@@ -86,7 +90,7 @@ export function ScreenshotsSection() {
               <div className="relative m-3 rounded-[2rem] overflow-hidden aspect-[390/844]">
                 <Image
                   key={activeScreenshot.id}
-                  src={activeScreenshot.src}
+                  src={assetPath(activeScreenshot.src)}
                   alt={activeScreenshot.alt}
                   fill
                   className="object-cover object-top transition-opacity duration-500"

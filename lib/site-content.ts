@@ -266,6 +266,7 @@ export const siteContent = {
     footnote: "Plus 與 Pro 價格為示意，實際以 App Store / Google Play 為準。",
     plans: [
       {
+        id: "free",
         name: "免費",
         description: "本機記帳，零門檻開始",
         price: { monthly: 0, annual: 0, oneTime: null },
@@ -281,6 +282,7 @@ export const siteContent = {
         popular: false,
       },
       {
+        id: "plus",
         name: "Plus",
         description: "一次買斷，本機無限記帳",
         price: { monthly: null, annual: null, oneTime: 14.99 },
@@ -296,6 +298,7 @@ export const siteContent = {
         popular: false,
       },
       {
+        id: "pro",
         name: "Pro",
         description: "雲端同步帳本，換機不丟資料",
         price: { monthly: 1.99, annual: 1.25, oneTime: null },
@@ -312,6 +315,7 @@ export const siteContent = {
         popular: true,
       },
       {
+        id: "coming-soon",
         name: "即將推出",
         description: "更多省時功能",
         price: { monthly: null, annual: null, oneTime: null },
@@ -334,6 +338,17 @@ export const siteContent = {
     description:
       "從看清每一筆無感消費開始。下載黑白記帳，三秒記一筆，把幽靈消費全部抓出來。",
     footnote: "免費開始 · 本機 500 筆",
+  },
+  faqSection: {
+    eyebrow: "常見問題",
+    title: "關於黑白記帳",
+    description: "快速了解 Flash Accounting 的定位、隱私模式、方案與支援平台。",
+  },
+  screenshotsSection: {
+    eyebrow: "App 畫面",
+    title: "極簡介面，",
+    titleMuted: "一眼看懂。",
+    description: "兩個主要分頁：記帳與統計。設定一鍵可達——零摩擦記帳，記完就關。",
   },
   footer: {
     links: {
@@ -368,6 +383,29 @@ export const siteContent = {
       { name: "App Store", href: "#" },
     ],
     status: "本機優先 · 只存手機",
+    copyright: "2026 黑白記帳｜追蹤無感消費. 保留所有權利。",
+  },
+  ui: {
+    monthlyLabel: "月付",
+    annualLabel: "年付",
+    billingToggleAria: "切換年付方案",
+    popularBadge: "雲端同步",
+    oneTimeSuffix: "一次買斷",
+    perMonthSuffix: "/月",
+    comingSoonPrice: "即將推出",
+    favoriteFeature: "最愛功能",
+    panelTitle: "內建能力",
+    panelStatus: "離線可用",
+    heroImageAlt: "黑白記帳記帳畫面",
+    mockMonthlyAutopay: "每月自動扣款",
+    mockForgotWhy: "忘記為什麼訂",
+    mockAutoRenews: "自動續訂",
+    mockMonthlyFixedSpend: "本月固定支出",
+    mockExpenseButton: "記支出",
+    mockIncomeButton: "記收入",
+    mockNetTotal: "淨額總計",
+    mockThisMonth: "本月",
+    mockByAmount: "依金額",
   },
 } as const;
 

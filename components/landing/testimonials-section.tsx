@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
 
 export function TestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const { testimonials } = siteContent;
+  const { testimonials, ui } = useSiteContent();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +72,7 @@ export function TestimonialsSection() {
               }`}
             >
               <span className="font-mono text-xs tracking-widest text-muted-foreground uppercase block mb-4">
-                最愛功能
+                {ui.favoriteFeature}
               </span>
               <p className="font-display text-3xl md:text-4xl text-foreground">
                 {activeTestimonial.metric}

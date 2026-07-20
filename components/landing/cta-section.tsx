@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AppleLogo } from "@/components/icons/apple-logo";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
 
 export function CtaSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { cta, download } = siteContent;
+  const { cta, download } = useSiteContent();
 
   useEffect(() => {
     const observer = new IntersectionObserver(

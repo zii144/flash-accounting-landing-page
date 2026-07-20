@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
+import { SUB_LOCALES } from "@/lib/locales/registry";
 
 export const dynamic = "force-static";
 
@@ -13,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...SUB_LOCALES.map((locale) => ({
+      url: `${siteConfig.url}${locale.path}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    })),
     {
       url: `${siteConfig.url}/privacy/`,
       lastModified,

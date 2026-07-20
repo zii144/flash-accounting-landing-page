@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
 
 export function InfrastructureSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeLocation, setActiveLocation] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const { localFirst } = siteContent;
+  const { localFirst, ui } = useSiteContent();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,10 +67,10 @@ export function InfrastructureSection() {
           >
             <div className="border border-foreground/10">
               <div className="px-6 py-4 border-b border-foreground/10 flex items-center justify-between">
-                <span className="text-sm font-mono text-muted-foreground">內建能力</span>
+                <span className="text-sm font-mono text-muted-foreground">{ui.panelTitle}</span>
                 <span className="flex items-center gap-2 text-xs font-mono text-green-600">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  離線可用
+                  {ui.panelStatus}
                 </span>
               </div>
 

@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatedWave } from "./animated-wave";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
 
 export function FooterSection() {
-  const { brand, footer, download } = siteContent;
+  const { brand, footer, download } = useSiteContent();
 
   return (
     <footer className="relative border-t border-foreground/10">
@@ -71,7 +71,7 @@ export function FooterSection() {
 
         <div className="py-8 border-t border-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            2025 {brand.name}. 保留所有權利。
+            {footer.copyright}
           </p>
 
           <div className="flex items-center gap-4 text-sm text-muted-foreground">

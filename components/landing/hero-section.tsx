@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AppleLogo } from "@/components/icons/apple-logo";
 import { AnimatedSphere } from "./animated-sphere";
-import { siteContent } from "@/lib/site-content";
+import { useSiteContent } from "@/components/locale-provider";
+import { assetPath } from "@/lib/asset-path";
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
-  const { hero, brand, download } = siteContent;
+  const siteContent = useSiteContent();
+  const { hero, brand, download, ui } = siteContent;
 
   useEffect(() => {
     setIsVisible(true);
@@ -153,8 +155,8 @@ export function HeroSection() {
               <div className="absolute inset-0 rounded-[2.5rem] border border-foreground/15 bg-foreground/[0.03] shadow-2xl" />
               <div className="relative m-3 rounded-[2rem] overflow-hidden aspect-[390/844]">
                 <Image
-                  src="/screenshots/accounting.png"
-                  alt="黑白記帳記帳畫面"
+                  src={assetPath("/screenshots/accounting.png")}
+                  alt={ui.heroImageAlt}
                   fill
                   className="object-cover object-top"
                   sizes="280px"

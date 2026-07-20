@@ -1,14 +1,71 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe, Check } from "lucide-react";
 import { AppleLogo } from "@/components/icons/apple-logo";
-import { siteContent } from "@/lib/site-content";
+import { useLocale, useSiteContent } from "@/components/locale-provider";
+import { LOCALES } from "@/lib/locales/registry";
+
+function LanguageMenu() {
+  const { locale } = useLocale();
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const close = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [isOpen]);
+
+  return (
+    <div ref={menuRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-label="Language"
+        className="flex items-center gap-1.5 text-sm text-foreground/70 hover:text-foreground transition-colors py-2"
+      >
+        <Globe className="w-4 h-4" />
+        <span>{locale.name}</span>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 w-56 max-h-[60vh] overflow-y-auto bg-background border border-foreground/10 rounded-xl shadow-xl p-1.5 z-50">
+          {LOCALES.map((l) => (
+            <Link
+              key={l.code}
+              href={l.path}
+              onClick={() => setIsOpen(false)}
+              className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors ${
+                l.code === locale.code
+                  ? "bg-foreground/5 text-foreground font-medium"
+                  : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+              }`}
+            >
+              {l.name}
+              {l.code === locale.code && <Check className="w-3.5 h-3.5" />}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { locale } = useLocale();
+  const siteContent = useSiteContent();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,19 +78,19 @@ export function Navigation() {
   return (
     <header
       className={`fixed z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "top-4 left-4 right-4" 
+        isScrolled
+          ? "top-4 left-4 right-4"
           : "top-0 left-0 right-0"
       }`}
     >
-      <nav 
+      <nav
         className={`mx-auto transition-all duration-500 ${
           isScrolled || isMobileMenuOpen
             ? "bg-background/80 backdrop-blur-xl border border-foreground/10 rounded-2xl shadow-lg max-w-[1200px]"
             : "bg-transparent max-w-[1400px]"
         }`}
       >
-        <div 
+        <div
           className={`flex items-center justify-between transition-all duration-500 px-6 lg:px-8 ${
             isScrolled ? "h-14" : "h-20"
           }`}
@@ -57,7 +114,8 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-6">
+            <LanguageMenu />
             <Button
               size="sm"
               className={`bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-500 ${isScrolled ? "px-4 h-8 text-xs" : "px-6"}`}
@@ -65,7 +123,7 @@ export function Navigation() {
             >
               <a href={siteContent.download.appStoreUrl}>
                 <AppleLogo />
-                Apple Store 免費下載
+                {siteContent.download.appStoreLabel}
               </a>
             </Button>
           </div>
@@ -84,16 +142,16 @@ export function Navigation() {
         </div>
 
       </nav>
-      
+
       <div
         className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
-          isMobileMenuOpen 
-            ? "opacity-100 pointer-events-auto" 
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
         style={{ top: 0 }}
       >
-        <div className="flex flex-col h-full px-8 pt-28 pb-8">
+        <div className="flex flex-col h-full px-8 pt-28 pb-8 overflow-y-auto">
           <div className="flex-1 flex flex-col justify-center gap-8">
             {siteContent.nav.map((link, i) => (
               <a
@@ -101,8 +159,8 @@ export function Navigation() {
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-5xl font-display text-foreground hover:text-muted-foreground transition-all duration-500 ${
-                  isMobileMenuOpen 
-                    ? "opacity-100 translate-y-0" 
+                  isMobileMenuOpen
+                    ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-4"
                 }`}
                 style={{ transitionDelay: isMobileMenuOpen ? `${i * 75}ms` : "0ms" }}
@@ -111,38 +169,62 @@ export function Navigation() {
               </a>
             ))}
           </div>
-          
-          <div className={`flex gap-4 pt-8 border-t border-foreground/10 transition-all duration-500 ${
-            isMobileMenuOpen 
-              ? "opacity-100 translate-y-0" 
-              : "opacity-0 translate-y-4"
-          }`}
-          style={{ transitionDelay: isMobileMenuOpen ? "300ms" : "0ms" }}
+
+          <div
+            className={`pt-8 border-t border-foreground/10 transition-all duration-500 ${
+              isMobileMenuOpen
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: isMobileMenuOpen ? "250ms" : "0ms" }}
           >
-            <Button 
-              variant="outline" 
-              className="flex-1 rounded-full h-14 text-base"
-              asChild
-            >
-              <a href={siteContent.download.appStoreUrl} onClick={() => setIsMobileMenuOpen(false)}>
-                <AppleLogo />
-                App Store
-              </a>
-            </Button>
-            <Button 
-              variant="outline" 
-              className="flex-1 rounded-full h-14 text-base"
-              disabled={!siteContent.download.googlePlayEnabled}
-              asChild={siteContent.download.googlePlayEnabled}
-            >
-              {siteContent.download.googlePlayEnabled ? (
-                <a href={siteContent.download.googlePlayUrl} onClick={() => setIsMobileMenuOpen(false)}>
-                  Google Play
+            <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
+              <Globe className="w-4 h-4" />
+              <span>{locale.name}</span>
+            </div>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3 mb-8">
+              {LOCALES.map((l) => (
+                <Link
+                  key={l.code}
+                  href={l.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-sm transition-colors ${
+                    l.code === locale.code
+                      ? "text-foreground font-medium"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex gap-4">
+              <Button
+                variant="outline"
+                className="flex-1 rounded-full h-14 text-base"
+                asChild
+              >
+                <a href={siteContent.download.appStoreUrl} onClick={() => setIsMobileMenuOpen(false)}>
+                  <AppleLogo />
+                  App Store
                 </a>
-              ) : (
-                <span>{siteContent.download.googlePlayLabel}</span>
-              )}
-            </Button>
+              </Button>
+              <Button
+                variant="outline"
+                className="flex-1 rounded-full h-14 text-base"
+                disabled={!siteContent.download.googlePlayEnabled}
+                asChild={siteContent.download.googlePlayEnabled}
+              >
+                {siteContent.download.googlePlayEnabled ? (
+                  <a href={siteContent.download.googlePlayUrl} onClick={() => setIsMobileMenuOpen(false)}>
+                    Google Play
+                  </a>
+                ) : (
+                  <span>{siteContent.download.googlePlayLabel}</span>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

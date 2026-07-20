@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig, absoluteUrl } from "@/lib/site-config";
+import { hreflangAlternates } from "@/lib/locales/registry";
+import { assetPath } from "@/lib/asset-path";
 
 const seoTitle = `${siteConfig.name} — 三秒記帳，揪出無感消費`;
 const seoDescription =
@@ -28,7 +30,7 @@ export const siteMetadata: Metadata = {
   alternates: {
     canonical: "/",
     languages: {
-      "zh-Hant": "/",
+      ...hreflangAlternates(),
       "zh-TW": "/",
     },
   },
@@ -67,8 +69,8 @@ export const siteMetadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [{ url: assetPath("/icon.svg"), type: "image/svg+xml" }],
+    apple: [{ url: assetPath("/icon.svg"), type: "image/svg+xml" }],
   },
   manifest: "/manifest.webmanifest",
   other: {
