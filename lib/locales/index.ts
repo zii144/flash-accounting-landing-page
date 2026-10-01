@@ -1,6 +1,8 @@
 // Server-side dictionary lookup. Do NOT import this from client components —
 // use lib/locales/registry.ts there (this file pulls in every dictionary).
 import type { LocaleContent } from "./types";
+import { PAYMENTS_ENABLED } from "@/lib/payments";
+import { applyLite } from "./lite";
 import zh from "./zh";
 import en from "./en";
 import ja from "./ja";
@@ -40,5 +42,7 @@ const CONTENT: Record<string, LocaleContent> = {
 export function getLocaleContent(code: string): LocaleContent {
   const content = CONTENT[code];
   if (!content) throw new Error(`No dictionary for locale: ${code}`);
-  return content;
+  // The app ships without payments for now; the dictionaries keep the paid copy and
+  // the lite overlay replaces it (lib/payments.ts, lib/locales/lite.ts).
+  return PAYMENTS_ENABLED ? content : applyLite(code, content);
 }

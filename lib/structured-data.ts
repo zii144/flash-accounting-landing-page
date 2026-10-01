@@ -1,6 +1,10 @@
-import { faqItems } from "@/lib/faq-content";
+import { getLocaleContent } from "@/lib/locales";
+import { PAYMENTS_ENABLED } from "@/lib/payments";
 import { siteConfig, absoluteUrl } from "@/lib/site-config";
-import { appScreenshots, siteContent } from "@/lib/site-content";
+
+// zh-Hant is the canonical locale here. Read it through the loader, not the raw
+// dictionary, so the lite overlay reaches the structured data too.
+const { siteContent, faqItems, appScreenshots } = getLocaleContent("zh");
 
 export function getOrganizationSchema() {
   return {
@@ -34,20 +38,29 @@ export function getWebSiteSchema() {
 }
 
 export function getSoftwareApplicationSchema() {
-  const offers = [
-    {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-      description: "Free tier with up to 500 local transactions",
-    },
-    {
-      "@type": "Offer",
-      price: "1.99",
-      priceCurrency: "USD",
-      description: "Pro monthly subscription with unlimited cloud sync",
-    },
-  ];
+  const offers = PAYMENTS_ENABLED
+    ? [
+        {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+          description: "Free tier with up to 500 local transactions",
+        },
+        {
+          "@type": "Offer",
+          price: "1.99",
+          priceCurrency: "USD",
+          description: "Pro monthly subscription with unlimited cloud sync",
+        },
+      ]
+    : [
+        {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+          description: "Free download",
+        },
+      ];
 
   return {
     "@context": "https://schema.org",
