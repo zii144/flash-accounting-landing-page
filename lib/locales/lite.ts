@@ -27,6 +27,10 @@ interface LiteCopy {
   readonly ctaFootnote: string;
   readonly faqSectionDescription: string;
   readonly settingsScreenshotDescription: string;
+  /** Value of that stat; "100%" unless the locale writes percentages differently. */
+  readonly onDeviceValue?: string;
+  /** New privacy-item descriptions without "by default", keyed by the item's exact title. */
+  readonly privacyItemDescriptions: Readonly<Record<string, string>>;
   /** New answers, keyed by the exact question they replace. */
   readonly faqAnswers: Readonly<Record<string, string>>;
   /** Exact entries that only make sense while payments are on. */
@@ -45,7 +49,7 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
     privacyFeatureTail: "。支援繁體中文、深色模式與多語介面。",
     localFirstDescription: "黑白記帳只在本機儲存。不必註冊就能開始記帳；想備份時，隨時匯出試算表。",
     onDeviceLabel: "本機儲存",
-    chartTypesLabel: "種圖表——圓餅、矩形樹狀、長條、折線",
+    chartTypesLabel: "圖表類型——圓餅、矩形圖、長條、折線",
     privacyDescription: "黑白記帳以本機優先為設計核心。不必註冊就能記帳，資料只留在你的手機裡。",
     ctaFootnote: "免費下載 · 免登入",
     faqSectionDescription: "快速了解 Flash Accounting 的定位、隱私模式與支援平台。",
@@ -55,6 +59,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "所有交易只存在你的裝置本機，離線可用，不必註冊。你隨時可匯出試算表備份、編輯或刪除紀錄，資料掌控權在你手上。",
       "需要註冊帳號才能使用嗎？":
         "不需要。黑白記帳不必註冊、也不用登入，打開就能記帳，資料只存在你的裝置上。",
+    },
+    privacyItemDescriptions: {
+      "本機優先":
+        "交易只存在你的裝置。不必註冊，打開就能記帳。",
     },
     drop: {
       highlights: ["500 筆免費額度", "可選雲端同步"],
@@ -80,6 +88,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Do I need an account to use it?":
         "No. There's no sign-up and no login — open the app and start logging. Everything stays on your device.",
     },
+    privacyItemDescriptions: {
+      "Local-first":
+        "Transactions are stored on your device. No registration — open the app and start logging.",
+    },
     drop: {
       highlights: ["500 free records", "Optional cloud sync"],
       badges: ["Optional sign-in", "Cloud sync"],
@@ -103,6 +115,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "すべての取引は端末内にのみ保存され、オフラインで使えます。登録は不要です。スプレッドシートへのバックアップ出力、記録の編集・削除はいつでも可能——データの主導権はあなたにあります。",
       "アカウント登録は必要？":
         "不要です。登録もログインもなしで、アプリを開けばすぐに記録できます。データはすべて端末内に保存されます。",
+    },
+    privacyItemDescriptions: {
+      "ローカルファースト":
+        "取引は端末内に保存。登録不要——アプリを開いたら、すぐ記録を始められます。",
     },
     drop: {
       highlights: ["無料で500件まで", "クラウド同期はオプション"],
@@ -128,6 +144,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "계정을 만들어야 하나요?":
         "아니요. 회원가입도 로그인도 없이 앱을 열면 바로 기록할 수 있습니다. 모든 데이터는 기기에만 저장됩니다.",
     },
+    privacyItemDescriptions: {
+      "로컬 우선":
+        "거래 내역은 기기에 저장됩니다. 회원가입 없이, 앱을 열자마자 기록할 수 있습니다.",
+    },
     drop: {
       highlights: ["무료 500건", "선택형 클라우드 동기화"],
       badges: ["선택형 로그인", "클라우드 동기화"],
@@ -151,6 +171,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "Cada movimiento se guarda solo en tu dispositivo y funciona sin conexión, sin registro. Puedes exportar una copia en hoja de cálculo, editar o eliminar registros en cualquier momento; tus datos siguen bajo tu control.",
       "¿Necesito una cuenta para usarla?":
         "No. No hace falta registrarse ni iniciar sesión: abre la app y empieza a anotar. Todo se queda en tu dispositivo.",
+    },
+    privacyItemDescriptions: {
+      "Local primero":
+        "Tus movimientos se guardan en el dispositivo. Sin registro: abre la app y empieza a anotar.",
     },
     drop: {
       highlights: ["500 registros gratis", "Nube opcional"],
@@ -176,6 +200,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Faut-il un compte pour l'utiliser ?":
         "Non. Ni inscription ni connexion : ouvrez l'app et commencez à noter. Tout reste sur votre appareil.",
     },
+    privacyItemDescriptions: {
+      "Local d'abord":
+        "Les transactions sont stockées sur votre appareil. Aucune inscription — ouvrez l'app et commencez à noter.",
+    },
     drop: {
       highlights: ["500 entrées gratuites", "Synchro cloud optionnelle"],
       badges: ["Connexion optionnelle", "Synchro cloud"],
@@ -199,6 +227,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "Jede Transaktion wird nur auf deinem Gerät gespeichert und funktioniert offline — keine Registrierung nötig. Du kannst jederzeit ein Backup als Tabelle exportieren, Einträge bearbeiten oder löschen; deine Daten bleiben unter deiner Kontrolle.",
       "Brauche ich ein Konto?":
         "Nein. Keine Registrierung, kein Login — App öffnen und loslegen. Alles bleibt auf deinem Gerät.",
+    },
+    privacyItemDescriptions: {
+      "Lokal zuerst":
+        "Transaktionen werden auf deinem Gerät gespeichert. Keine Registrierung — App öffnen und loslegen.",
     },
     drop: {
       highlights: ["500 Einträge gratis", "Optionaler Cloud-Sync"],
@@ -224,6 +256,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Serve un account per usarla?":
         "No. Niente registrazione né login: apri l'app e inizia a registrare. Tutto resta sul tuo dispositivo.",
     },
+    privacyItemDescriptions: {
+      "Local-first":
+        "Le transazioni restano sul tuo dispositivo. Nessuna registrazione: apri l'app e inizia a segnare.",
+    },
     drop: {
       highlights: ["500 record gratuiti", "Sync cloud opzionale"],
       badges: ["Login opzionale", "Sync cloud"],
@@ -247,6 +283,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "Cada transação fica só no seu aparelho e funciona offline — sem cadastro. Você pode exportar um backup em planilha, editar ou apagar registros a qualquer momento; seus dados seguem sob seu controle.",
       "Preciso de conta para usar?":
         "Não. Não precisa de cadastro nem de login: abra o app e comece a lançar. Tudo fica no seu aparelho.",
+    },
+    privacyItemDescriptions: {
+      "Privada por padrão":
+        "As transações ficam no seu aparelho. Sem cadastro — abra o app e comece a lançar.",
     },
     drop: {
       highlights: ["500 registros grátis", "Nuvem opcional"],
@@ -272,6 +312,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Нужен ли аккаунт, чтобы пользоваться приложением?":
         "Нет. Ни регистрации, ни входа — откройте приложение и начинайте записывать. Всё хранится на вашем устройстве.",
     },
+    privacyItemDescriptions: {
+      "Локальное хранение":
+        "Операции хранятся на вашем устройстве. Без регистрации — откройте приложение и записывайте.",
+    },
     drop: {
       highlights: ["500 бесплатных записей", "Опциональная синхронизация"],
       badges: ["Вход по желанию", "Облачная синхронизация"],
@@ -295,6 +339,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "हर लेन-देन सिर्फ़ आपके डिवाइस पर रहता है और ऑफ़लाइन काम करता है — किसी रजिस्ट्रेशन की ज़रूरत नहीं। आप कभी भी स्प्रेडशीट में बैकअप एक्सपोर्ट कर सकते हैं, रिकॉर्ड एडिट या डिलीट कर सकते हैं — डेटा पर नियंत्रण आपका ही रहता है।",
       "क्या इस्तेमाल के लिए अकाउंट ज़रूरी है?":
         "नहीं। न साइन-अप, न लॉगिन — ऐप खोलें और लिखना शुरू करें। सारा डेटा आपके डिवाइस पर ही रहता है।",
+    },
+    privacyItemDescriptions: {
+      "लोकल-फ़र्स्ट":
+        "लेन-देन आपके डिवाइस पर सेव होते हैं। कोई रजिस्ट्रेशन नहीं — ऐप खोलिए और लिखना शुरू कीजिए।",
     },
     drop: {
       highlights: ["500 मुफ़्त रिकॉर्ड", "वैकल्पिक क्लाउड सिंक"],
@@ -320,6 +368,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Perlu akun untuk memakainya?":
         "Tidak. Tanpa daftar dan tanpa login — buka aplikasinya dan langsung catat. Semua data tetap di perangkatmu.",
     },
+    privacyItemDescriptions: {
+      "Lokal lebih dulu":
+        "Transaksi tersimpan di perangkatmu. Tanpa registrasi — buka aplikasinya dan langsung catat.",
+    },
     drop: {
       highlights: ["500 catatan gratis", "Sinkronisasi cloud opsional"],
       badges: ["Login opsional", "Sinkronisasi cloud"],
@@ -344,6 +396,11 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Kullanmak için hesap gerekiyor mu?":
         "Hayır. Kayıt da giriş de yok — uygulamayı aç ve hemen kaydetmeye başla. Tüm veriler cihazında kalır.",
     },
+    privacyItemDescriptions: {
+      "Yerel öncelikli":
+        "İşlemler cihazında saklanır. Kayıt olmak yok — uygulamayı aç ve yazmaya başla.",
+    },
+    onDeviceValue: "%100",
     drop: {
       highlights: ["500 ücretsiz kayıt", "İsteğe bağlı bulut senkronu"],
       badges: ["İsteğe bağlı giriş", "Bulut senkronu"],
@@ -367,6 +424,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
         "Mọi giao dịch chỉ lưu trên thiết bị của bạn và dùng offline được — không cần đăng ký tài khoản. Xuất bảng tính để sao lưu, sửa hay xóa bản ghi bất cứ lúc nào; dữ liệu luôn nằm trong tầm kiểm soát của bạn.",
       "Có cần tài khoản mới dùng được không?":
         "Không. Không cần đăng ký, không cần đăng nhập — mở app là ghi được ngay. Mọi dữ liệu đều nằm trên máy bạn.",
+    },
+    privacyItemDescriptions: {
+      "Ưu tiên trên máy":
+        "Giao dịch được lưu trên thiết bị của bạn. Không cần đăng ký — mở app là ghi được ngay.",
     },
     drop: {
       highlights: ["500 bản ghi miễn phí", "Đồng bộ đám mây tùy chọn"],
@@ -392,6 +453,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "ต้องมีบัญชีถึงจะใช้ได้ไหม?":
         "ไม่ต้องเลย ไม่ต้องสมัคร ไม่ต้องล็อกอิน เปิดแอปแล้วจดได้ทันที ข้อมูลทั้งหมดอยู่ในเครื่องของคุณ",
     },
+    privacyItemDescriptions: {
+      "เก็บในเครื่องเป็นหลัก":
+        "ทุกรายการเก็บในเครื่องของคุณ ไม่ต้องสมัครสมาชิก — เปิดแอปแล้วจดได้เลย",
+    },
     drop: {
       highlights: ["ฟรี 500 รายการ", "ซิงก์คลาวด์เมื่อต้องการ"],
       badges: ["ล็อกอินเมื่อต้องการ", "ซิงก์คลาวด์"],
@@ -416,6 +481,10 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
       "Czy potrzebuję konta, żeby korzystać z aplikacji?":
         "Nie. Bez rejestracji i bez logowania — otwórz aplikację i od razu zapisuj. Wszystko zostaje na twoim urządzeniu.",
     },
+    privacyItemDescriptions: {
+      "Najpierw lokalnie":
+        "Transakcje są zapisywane na twoim urządzeniu. Bez rejestracji — otwierasz aplikację i zapisujesz.",
+    },
     drop: {
       highlights: ["500 darmowych zapisów", "Opcjonalna synchronizacja"],
       badges: ["Logowanie opcjonalne", "Sync z chmurą"],
@@ -426,6 +495,12 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
     },
   },
 };
+
+/**
+ * Words that only appear in paid copy. Checked over the whole lite result, so paid copy
+ * newly *added* to a dictionary fails the build too, not only a renamed target.
+ */
+const PAID_COPY = /\bPro\b|\bPlus\b|#pricing/;
 
 /** The free-record-cap value used by the hero stat, the local-first stat and the metric. */
 const CAP_VALUE = "500";
@@ -503,7 +578,7 @@ export function applyLite(code: string, content: LocaleContent): LocaleContent {
       stats: replaceOne(
         s.localFirst.stats,
         (stat) => stat.value === CAP_VALUE,
-        () => ({ value: "100%", label: copy.onDeviceLabel }),
+        () => ({ value: copy.onDeviceValue ?? "100%", label: copy.onDeviceLabel }),
         at("localFirst.stats")
       ),
       highlights: dropExact(
@@ -535,11 +610,15 @@ export function applyLite(code: string, content: LocaleContent): LocaleContent {
       ...s.privacy,
       description: copy.privacyDescription,
       badges: dropExact(s.privacy.badges, (badge) => badge, copy.drop.badges, at("privacy.badges")),
-      items: dropExact(
-        s.privacy.items,
-        (item) => item.title,
-        copy.drop.privacyItems,
-        at("privacy.items")
+      items: Object.entries(copy.privacyItemDescriptions).reduce(
+        (items, [title, description]) =>
+          replaceOne(
+            items,
+            (item) => item.title === title,
+            (item) => ({ ...item, description }),
+            at(`privacy.items "${title}"`)
+          ),
+        dropExact(s.privacy.items, (item) => item.title, copy.drop.privacyItems, at("privacy.items"))
       ),
     },
     testimonials: {
@@ -608,5 +687,8 @@ export function applyLite(code: string, content: LocaleContent): LocaleContent {
     at("screenshots.settings")
   );
 
-  return { ...content, siteContent, faqItems, appScreenshots };
+  const lite: LocaleContent = { ...content, siteContent, faqItems, appScreenshots };
+  const leaked = JSON.stringify(lite).match(PAID_COPY);
+  if (leaked) fail(code, `paid copy "${leaked[0]}" survived the overlay`);
+  return lite;
 }

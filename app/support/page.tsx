@@ -93,8 +93,8 @@ const en = (
       </p>
     ) : (
       <p>
-        On your device, in a local database. Nothing leaves your device. See
-        the <Link href="/privacy">Privacy Policy</Link> for details.
+        On your device, in a local database. Your records never leave your
+        device. See the <Link href="/privacy">Privacy Policy</Link> for details.
       </p>
     )}
 
@@ -167,7 +167,7 @@ const zh = (
       </p>
     ) : (
       <p>
-        存在您裝置上的本機資料庫，資料不會離開裝置。詳見
+        存在您裝置上的本機資料庫，記錄不會離開裝置。詳見
         <Link href="/privacy">隱私權政策</Link>。
       </p>
     )}
