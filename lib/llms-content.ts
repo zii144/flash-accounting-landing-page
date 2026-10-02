@@ -1,6 +1,26 @@
-import { faqItems } from "@/lib/faq-content";
+import { getLocaleContent } from "@/lib/locales";
+import { PAYMENTS_ENABLED } from "@/lib/payments";
 import { siteConfig, absoluteUrl } from "@/lib/site-config";
-import { appScreenshots, siteContent } from "@/lib/site-content";
+
+// zh-Hant is the canonical locale here. Read it through the loader, not the raw
+// dictionary, so the lite overlay reaches llms.txt too.
+const { siteContent, faqItems, appScreenshots } = getLocaleContent("zh");
+
+function getPricingSection(): string {
+  if (!PAYMENTS_ENABLED) return "";
+  const plans = siteContent.pricing.plans
+    .map((plan) => {
+      const price =
+        plan.price.monthly === null
+          ? "Coming soon"
+          : plan.price.monthly === 0
+            ? "Free"
+            : `$${plan.price.monthly}/mo (annual ~$${plan.price.annual}/mo)`;
+      return `- **${plan.name}** (${price}): ${plan.description}. Features: ${plan.features.join("; ")}.`;
+    })
+    .join("\n");
+  return `## Pricing\n\n${plans}\n\n`;
+}
 
 export function getLlmsTxt(): string {
   return `# ${siteConfig.nameEn} (${siteConfig.name})
@@ -15,8 +35,8 @@ ${siteConfig.description}
 - **Product name (zh-TW):** ${siteConfig.name}
 - **Category:** Personal finance / expense tracking mobile app
 - **Platform:** iOS${siteConfig.googlePlayEnabled ? ", Android" : " (Android coming soon)"}
-- **Pricing:** Free (500 local entries) · Pro cloud sync (~$1.99/mo or ~$14.99/yr)
-- **Privacy model:** Local-first, offline-capable, optional cloud sync
+- **Pricing:** ${PAYMENTS_ENABLED ? "Free (500 local entries) · Pro cloud sync (~$1.99/mo or ~$14.99/yr)" : "Free"}
+- **Privacy model:** ${PAYMENTS_ENABLED ? "Local-first, offline-capable, optional cloud sync" : "Local-first, offline-capable, no account or sign-in"}
 - **Languages:** ${siteContent.languages.items.map((item) => item.name).join(", ")}
 
 ## Key features
@@ -27,21 +47,7 @@ ${siteContent.features.items.map((item) => `- **${item.title}:** ${item.descript
 
 ${siteContent.howItWorks.steps.map((step) => `${step.number}. **${step.title}** — ${step.description}`).join("\n")}
 
-## Pricing
-
-${siteContent.pricing.plans
-  .map((plan) => {
-    const price =
-      plan.price.monthly === null
-        ? "Coming soon"
-        : plan.price.monthly === 0
-          ? "Free"
-          : `$${plan.price.monthly}/mo (annual ~$${plan.price.annual}/mo)`;
-    return `- **${plan.name}** (${price}): ${plan.description}. Features: ${plan.features.join("; ")}.`;
-  })
-  .join("\n")}
-
-## FAQ
+${getPricingSection()}## FAQ
 
 ${faqItems.map((item) => `### ${item.question}\n${item.answer}`).join("\n\n")}
 

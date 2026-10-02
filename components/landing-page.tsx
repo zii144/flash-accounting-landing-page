@@ -1,6 +1,7 @@
 import { LocaleProvider } from "@/components/locale-provider";
 import { getLocaleContent } from "@/lib/locales";
 import { getLocaleInfo } from "@/lib/locales/registry";
+import { PAYMENTS_ENABLED } from "@/lib/payments";
 import { Navigation } from "@/components/landing/navigation";
 import { HeroSection } from "@/components/landing/hero-section";
 import { FeaturesSection } from "@/components/landing/features-section";
@@ -33,7 +34,7 @@ export function LandingPage({ locale }: { locale: string }) {
         <SecuritySection />
         <ScreenshotsSection />
         <TestimonialsSection />
-        <PricingSection />
+        {PAYMENTS_ENABLED && <PricingSection />}
         <FaqSection />
         <CtaSection />
         <FooterSection />
