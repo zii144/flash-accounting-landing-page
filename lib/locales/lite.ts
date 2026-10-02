@@ -497,10 +497,12 @@ const LITE_COPY: Readonly<Record<string, LiteCopy>> = {
 };
 
 /**
- * Words that only appear in paid copy. Checked over the whole lite result, so paid copy
- * newly *added* to a dictionary fails the build too, not only a renamed target.
+ * Words that only appear in paid copy: the plan names, the pricing anchor, the old record
+ * cap, and cloud sync (EN wording and 雲端). Checked over the whole lite result, so paid
+ * copy newly *added* to a dictionary fails the build too, not only a renamed target.
+ * ("iCloud" in the spending examples does not match \b[Cc]loud.)
  */
-const PAID_COPY = /\bPro\b|\bPlus\b|#pricing/;
+const PAID_COPY = /\bPro\b|\bPlus\b|#pricing|\b500\b|\b[Cc]loud\b|雲端/;
 
 /** The free-record-cap value used by the hero stat, the local-first stat and the metric. */
 const CAP_VALUE = "500";
