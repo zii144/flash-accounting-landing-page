@@ -1,6 +1,9 @@
 import { siteContent } from "@/lib/site-content";
 
-const defaultSiteUrl = "https://flash-accounting.app";
+// Production is the Vercel project it-smart-products/flash-accounting-landing-page, which
+// deploys every push to main. Canonical URLs, the sitemap, Open Graph and the structured
+// data all derive from this; set NEXT_PUBLIC_SITE_URL to override (e.g. a custom domain).
+const defaultSiteUrl = "https://flash-accounting-landing-page.vercel.app";
 
 export const siteConfig = {
   name: siteContent.brand.name,
