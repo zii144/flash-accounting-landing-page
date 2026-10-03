@@ -1,12 +1,15 @@
-name: Deploy to GitHub Pages
+name: GitHub Pages fallback (manual)
 
-# Builds the Next.js landing page as a static export and publishes it to
-# GitHub Pages at https://zii144.github.io/flash-accounting-landing-page/.
-# Requires: repo Settings → Pages → Source: GitHub Actions.
+# The site's home is Vercel (https://flash-accounting-landing-page.vercel.app),
+# which deploys every push to main by itself. This workflow no longer runs on push.
+#
+# The GitHub Pages copy at https://zii144.github.io/flash-accounting-landing-page/
+# stays published because shipped links still point at it: app build 19's in-app
+# Privacy Policy / Terms of Use links and the App Store metadata live at the time
+# of the move (2026-10-03). Its canonical URLs point at Vercel, so search engines
+# treat it as a mirror. Run it by hand only to refresh that mirror, and retire it
+# (Settings → Pages → Unpublish) once no shipped build or store listing links here.
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -19,7 +22,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NEXT_PUBLIC_SITE_URL: https://zii144.github.io/flash-accounting-landing-page
+  # Canonical URLs point at the Vercel home, not at this mirror.
+  NEXT_PUBLIC_SITE_URL: https://flash-accounting-landing-page.vercel.app
   NEXT_PUBLIC_BASE_PATH: /flash-accounting-landing-page
 
 jobs:
